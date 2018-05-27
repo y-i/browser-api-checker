@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <style>
+            table {
+                text-align: left;
+            }
+            table,td,th {
+                border: solid 1px black;
+                border-collapse: collapse;
+            }
+            table .second > th {
+                padding-left: 20px;
+            }
+            table .third > th {
+                padding-left: 40px;
+            }
+            .ok {
+                background-color: lightblue;
+            }
+            .ng {
+                background-color: darkorange;
+            }
+            .tb-header {
+                position: sticky;
+                top: 0;
+            }
+            table, tr {
+                display: table;
+            }
+            tr th:first-child {
+                width: 400px;
+                box-sizing: border-box;
+                text-align: left;
+            }
+            tr > * {
+                width: 100px;
+                box-sizing: border-box;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <ul id="link"></ul>
+        <table id="table">
+            <tr class="tb-header">
+                <th></th>
+                <th>Chrome66</th>
+                <th>Chrome68</th>
+                <th>FF59</th>
+                <th>FF61</th>
+            </tr>
+        </table>
+        <script>
+            fetch('./result.json').then(res => res.json()).then(res => {
+                Object.keys(res).forEach((k1) => {
+                    const tr = document.createElement('tr');
+                    tr.id = k1;
+                    tr.classList.add('first');
+                    tr.innerHTML = `<th>${k1}</th>`;
+                    for (let i = 0; i < 4; ++i) {
+                        tr.appendChild(document.createElement('td'));
+                    }
+                    document.getElementById('table').appendChild(tr);
+
+                    const li = document.createElement('li');
+                    li.innerHTML = `<a href="#${k1}">${k1}</a>`;
+                    document.getElementById('link').appendChild(li);
+
+                    Object.keys(res[k1]).forEach((k2) => {
+                        const tr2 = document.createElement('tr');
+                        tr2.classList.add('second');
+                        tr2.innerHTML = `<th>${k2}</th>`;
+                        for (let i = 0; i < 4; ++i) {
+                            tr2.appendChild(document.createElement('td'));
+                        }
+                        document.getElementById('table').appendChild(tr2);
+                        Object.keys(res[k1][k2]).forEach((k3) => {
+                            const tr3 = document.createElement('tr');
+                            tr3.classList.add('third');
+                            tr3.innerHTML = `<th>${k3}</th>`;
+                            const td1 = document.createElement('td');
+                            td1.innerHTML = res[k1][k2][k3]['chrome/66'];
+                            td1.classList.add(res[k1][k2][k3]['chrome/66'] ? 'ok' : 'ng');
+                            tr3.appendChild(td1);
+                            const td4 = document.createElement('td');
+                            td4.innerHTML = res[k1][k2][k3]['chrome/68'];
+                            td4.classList.add(res[k1][k2][k3]['chrome/68'] ? 'ok' : 'ng');
+                            tr3.appendChild(td4);
+                            const td2 = document.createElement('td');
+                            td2.innerHTML = res[k1][k2][k3]['firefox/59'];
+                            td2.classList.add(res[k1][k2][k3]['firefox/59'] ? 'ok' : 'ng');
+                            tr3.appendChild(td2);
+                            const td3 = document.createElement('td');
+                            td3.innerHTML = res[k1][k2][k3]['firefox/61'];
+                            td3.classList.add(res[k1][k2][k3]['firefox/61'] ? 'ok' : 'ng');
+                            tr3.appendChild(td3);
+                            document.getElementById('table').appendChild(tr3);
+                        });
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>
