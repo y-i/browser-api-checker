@@ -1,6 +1,12 @@
 # browser-api-checker
 ブラウザのAPIの実装の有無を調べてリスト化する
 
+## 方法
+```
+Hoge.prototype.hasOwnProperty('fuga');
+```
+で判定
+
 ## 使用法
 1. `get_api_list.py`でAPIリストの取得&テスト用JSの取得
 1. `concat.sh`でJSをまとめてwebに配置
