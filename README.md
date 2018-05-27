@@ -18,5 +18,7 @@ Hoge.prototype.hasOwnProperty('fuga');
 ## dockerの起動例
 - buildはdockerディレクトリをビルド
 - multi-ffという名前でビルドした場合
-```docker run -e FIREFOX_VERSIONS=60.0.1,58.0.2 --name mff multi-ff```
-  - `FIREFOX_VERSIONS`には取得したいFFのバージョンをコンマ区切りで渡す
+```
+docker run -e FIREFOX_VERSIONS=60.0.1,58.0.2 --name mff multi-ff
+```
+  - `FIREFOX_VERSIONS`には取得したいFFのバージョンをコンマ区切りで渡す
