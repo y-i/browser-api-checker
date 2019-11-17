@@ -62,7 +62,9 @@ typings/
 
 .vscode
 old/*
-out/*.js
+out
 result/*.json
 web/*.json
+web/*.js
+web/*/*.js
 src/apilist.js
